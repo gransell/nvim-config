@@ -8,9 +8,9 @@ return {
   {
     'williamboman/mason-lspconfig.nvim',
     config = function()
-      require('mason-lspconfig').setup {
+      require('mason-lspconfig').setup({
         ensure_installed = { 'rust_analyzer', 'tsserver', 'lua_ls', 'eslint' },
-      }
+      })
     end,
   },
   {
@@ -22,17 +22,21 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-      local lsp = require 'lspconfig'
-      lsp.lua_ls.setup {
+      local lsp = require('lspconfig')
+      lsp.lua_ls.setup({
         capabilities,
         settings = {
           Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { 'vim' },
+            },
           },
         },
-      }
-      lsp.tsserver.setup {
+      })
+      lsp.tsserver.setup({
         capabilities,
         settings = {
           -- Disable the <variable> is declared but its value is never read warning for TS
@@ -42,19 +46,19 @@ return {
           },
           -- documentFormatting = false
         },
-      }
+      })
 
-      lsp.sourcekit.setup {
+      lsp.sourcekit.setup({
         capabilities,
-      }
+      })
 
-      lsp.eslint.setup {
+      lsp.eslint.setup({
         capabilities,
         settings = {
           workingDirectory = { mode = 'location' },
         },
         root_dir = lsp.util.find_git_ancestor,
-      }
+      })
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer

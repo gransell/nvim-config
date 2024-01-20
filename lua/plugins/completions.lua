@@ -40,13 +40,11 @@ return {
           ['<C-e>'] = cmp.mapping.abort(),
           ['<CR>'] = cmp.mapping.confirm { select = true },
         },
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
-        }, {
-          { name = 'buffer' },
-        }),
+        },
         experimental = {
           ghost_text = {
             hl_group = 'CmpGhostText',
