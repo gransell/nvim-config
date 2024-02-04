@@ -1,7 +1,9 @@
-vim.cmd.expandtab = true
-vim.cmd.tabstop = 2
-vim.cmd.softtabstop = 2
-vim.cmd.shiftwidth = 2
+local opt = vim.opt
+
+opt.expandtab = true
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -37,7 +39,7 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menu,menuone,noselect'
 
 vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })

@@ -7,7 +7,7 @@ return {
     'numToStr/Comment.nvim',
     opts = {},
   },
-  { 'github/copilot.vim' },
+  -- { 'github/copilot.vim' },
   {
     'echasnovski/mini.surround',
     opts = {

@@ -33,6 +33,9 @@ return {
               -- Get the language server to recognize the `vim` global
               globals = { 'vim' },
             },
+            completion = {
+              callSnippet = 'Replace',
+            },
           },
         },
       })
@@ -70,8 +73,15 @@ return {
         },
       })
 
+      local util = require('lspconfig.util')
       lsp.sourcekit.setup({
         capabilities,
+        root_dir = function(filename, _)
+          return util.root_pattern('buildServer.json')(filename)
+            or util.root_pattern('*.xcodeproj', '*.xcworkspace')(filename)
+            or util.root_pattern('Package.swift')(filename)
+            or util.find_git_ancestor(filename)
+        end,
       })
 
       lsp.eslint.setup({
