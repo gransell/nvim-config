@@ -7,7 +7,24 @@ return {
     'numToStr/Comment.nvim',
     opts = {},
   },
-  -- { 'github/copilot.vim' },
+  {
+    'github/copilot.vim',
+    config = function()
+      vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false,
+      })
+      vim.g.copilot_no_tab_map = true
+    end,
+  },
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   cmd = 'Copilot',
+  --   event = 'InsertEnter',
+  --   config = function()
+  --     require('copilot').setup({})
+  --   end,
+  -- },
   {
     'echasnovski/mini.surround',
     opts = {

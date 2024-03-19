@@ -16,7 +16,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'folke/neodev.nvim',
+      { 'folke/neodev.nvim', opts = { library = { plugins = { 'nvim-dap-ui' }, types = true } } },
     },
     config = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()

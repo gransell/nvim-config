@@ -9,6 +9,7 @@ return {
   config = function()
     local nt = require('neo-tree')
     nt.setup({
+      enable_diagnostics = true,
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
@@ -25,6 +26,20 @@ return {
           expander_collapsed = '',
           expander_expanded = '',
           expander_highlight = 'NeoTreeExpander',
+        },
+        diagnostics = {
+          symbols = {
+            hint = '',
+            info = ' ',
+            warn = ' ',
+            error = ' ',
+          },
+          highlights = {
+            hint = 'DiagnosticSignHint',
+            info = 'DiagnosticSignInfo',
+            warn = 'DiagnosticSignWarn',
+            error = 'DiagnosticSignError',
+          },
         },
       },
     })

@@ -5,6 +5,10 @@ opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 2
 
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -41,6 +45,9 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menu,menuone,noselect'
 
+opt.foldmethod = 'expr'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
 vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
 vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
@@ -74,12 +81,41 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- [[ Unfold on open ]]
+-- Since vim will start with all folds closed we need to open them all when a file is opened
+opt.foldlevel = 20
+-- local unfold_group = vim.api.nvim_create_augroup('Unfold', { clear = true })
+-- vim.api.nvim_create_autocmd({ 'BufReadPost', 'FileReadPost' }, {
+--   command = 'normal zR',
+--   group = unfold_group,
+--   pattern = '*',
+-- })
+
 -- Cycle thorugh buffers
 vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev buffer' })
 vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', { desc = 'Toggle pin' })
+vim.keymap.set('n', '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', { desc = 'Delete non-pinned buffers' })
+vim.keymap.set('n', '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', { desc = 'Delete other buffers' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+vim.keymap.set('n', '<leader>dx', function()
+  require('trouble').toggle()
+end, { desc = 'Toggle trouble' })
+vim.keymap.set('n', '<leader>dw', function()
+  require('trouble').toggle('workspace_diagnostics')
+end, { desc = 'Toggle worskapce diagnostics' })
+vim.keymap.set('n', '<leader>dd', function()
+  require('trouble').toggle('document_diagnostics')
+end, { desc = 'Toggle document diagnostics' })
+vim.keymap.set('n', '<leader>dq', function()
+  require('trouble').toggle('quickfix')
+end, { desc = 'Toggle Quick Fix' })
+vim.keymap.set('n', 'gR', function()
+  require('trouble').toggle('lsp_references')
+end, { desc = 'Toggle trouble' })

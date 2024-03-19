@@ -4,6 +4,17 @@ local diagnosticsIcons = {
   info = ' ',
   hint = ' ',
 }
+local function xcodebuild_device()
+  if vim.g.xcodebuild_platform == 'macOS' then
+    return ' macOS'
+  end
+
+  if vim.g.xcodebuild_os then
+    return ' ' .. vim.g.xcodebuild_device_name .. ' (' .. vim.g.xcodebuild_os .. ')'
+  end
+
+  return ' ' .. vim.g.xcodebuild_device_name
+end
 
 return {
   {
@@ -47,6 +58,9 @@ return {
             cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
             -- color = Util.fg("Constant"),
           },
+          -- { "' ' .. vim.g.xcodebuild_last_status", color = { fg = 'Gray' } },
+          -- { "'󰙨 ' .. vim.g.xcodebuild_test_plan", color = { fg = '#a6e3a1', bg = '#161622' } },
+          { xcodebuild_device, color = { fg = '#f9e2af', bg = '#161622' } },
           {
             'diff',
             symbols = {
@@ -154,23 +168,6 @@ return {
         },
       },
     },
-    -- keys = {
-    -- 	{
-    -- 		"<S-h>",
-    -- 		"<cmd>BufferLineCyclePrev<cr>",
-    -- 		desc = "Prev buffer",
-    -- 	},
-    -- 	{
-    -- 		"<S-l>",
-    -- 		"<cmd>BufferLineCycleNext<cr>",
-    -- 		desc = "Next buffer",
-    -- 	},
-    -- },
-    -- config = function()
-    -- 	-- Cycle thorugh buffers
-    -- 	vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-    -- 	vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-    -- end,
   },
   {
     'echasnovski/mini.bufremove',
@@ -198,4 +195,38 @@ return {
       require('mini.indentscope').setup()
     end,
   },
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    'NeogitOrg/neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- required
+      'sindrets/diffview.nvim', -- optional - Diff integration
+
+      -- Only one of these is needed, not both.
+      'nvim-telescope/telescope.nvim', -- optional
+    },
+    config = function()
+      local neogit = require('neogit')
+      neogit.setup({})
+
+      vim.keymap.set('n', '<leader>go', neogit.open, { desc = 'Open NeoGit' })
+      vim.keymap.set('n', '<leader>gc', function()
+        neogit.open({ 'commit' })
+      end, { desc = 'Open NeoGit Commit' })
+    end,
+  },
+  -- {
+  --   'nvim-tree/nvim-tree.lua',
+  --   version = '*',
+  --   lazy = false,
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons',
+  --   },
+  --   config = function()
+  --     require('nvim-tree').setup({})
+  --   end,
+  -- },
 }
