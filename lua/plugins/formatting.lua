@@ -8,7 +8,7 @@ return {
       -- Customize or remove this keymap to your liking
       '<leader>f',
       function()
-        require('conform').format({ async = true, lsp_fallback = false })
+        require('conform').format({ async = true, lsp_fallback = true })
       end,
       mode = { '' },
       desc = 'Format buffer',
@@ -23,7 +23,6 @@ return {
       css = { 'prettierd' },
       lua = { 'stylua' },
       swift = { 'swift_format' },
-      rust = { 'rutfmt' },
     },
     format_on_save = {
       lsp_fallback = true,

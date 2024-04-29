@@ -21,6 +21,9 @@ vim.wo.relativenumber = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
+-- Highlight current line
+vim.wo.cursorline = true
+
 -- Sync clipboard between OS and Neovim.
 vim.o.clipboard = 'unnamedplus'
 
@@ -103,6 +106,13 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+vim.keymap.set('n', '<leader>nh', '<cmd>noh<cr>', { desc = 'Clear highlights' })
+
+vim.keymap.set('n', '<leader>wsh', '<C-w>s', { desc = 'Split window horizontally' })
+vim.keymap.set('n', '<leader>wsv', '<C-w>v', { desc = 'Split window vertically' })
+vim.keymap.set('n', '<leader>wse', '<C-w>=', { desc = 'Make splits equal size' })
+vim.keymap.set('n', '<leader>wx', '<cmd>close<cr>', { desc = 'Close window' })
 
 vim.keymap.set('n', '<leader>dx', function()
   require('trouble').toggle()

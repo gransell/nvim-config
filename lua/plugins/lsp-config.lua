@@ -84,13 +84,15 @@ return {
         end,
       })
 
-      lsp.eslint.setup({
-        capabilities,
-        settings = {
-          workingDirectory = { mode = 'location' },
-        },
-        root_dir = lsp.util.find_git_ancestor,
-      })
+      -- lsp.eslint.setup({
+      --   capabilities,
+      --   settings = {
+      --     workingDirectory = { mode = 'location' },
+      --   },
+      --   root_dir = lsp.util.find_git_ancestor,
+      -- })
+
+      lsp.biome.setup({ capabilities })
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
