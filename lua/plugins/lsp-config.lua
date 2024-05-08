@@ -9,7 +9,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'rust_analyzer', 'tsserver', 'lua_ls', 'eslint' },
+        ensure_installed = { 'rust_analyzer', 'tsserver', 'lua_ls', 'biome' },
       })
     end,
   },
