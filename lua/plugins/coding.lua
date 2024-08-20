@@ -129,11 +129,36 @@ return {
     },
   },
   {
-    'ggandor/leap.nvim',
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+  {
+    'mfussenegger/nvim-lint',
+    opts = {
+      -- Event to trigger linters
+      events = { 'BufWritePost', 'BufReadPost' },
+      linters_by_ft = {
+        -- Use the "*" filetype to run linters on all filetypes.
+        ['*'] = { 'cspell' },
+      },
+    },
     config = function()
-      vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap-forward)')
-      vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Plug>(leap-backward)')
-      -- Don't use default mappings to avoid conflict with mini.surround
+      vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost' }, {
+        callback = function()
+          -- try_lint without arguments runs the linters defined in `linters_by_ft`
+          -- for the current filetype
+          require('lint').try_lint()
+        end,
+      })
     end,
   },
 }

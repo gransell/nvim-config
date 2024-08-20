@@ -9,7 +9,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'rust_analyzer', 'tsserver', 'lua_ls', 'biome' },
+        ensure_installed = { 'pyright', 'rust_analyzer', 'tsserver', 'lua_ls', 'biome' },
       })
     end,
   },
@@ -43,7 +43,7 @@ return {
         capabilities,
         settings = {
           -- Disable the <variable> is declared but its value is never read warning for TS
-          diagnostics = { ignoredCodes = { 6133 } },
+          diagnostics = { ignoredCodes = { 2686, 6133, 80006 } },
           completions = {
             completeFunctionCalls = true,
           },
@@ -76,10 +76,11 @@ return {
       local util = require('lspconfig.util')
       lsp.sourcekit.setup({
         capabilities,
+        cmd = { '/usr/bin/sourcekit-lsp' },
         root_dir = function(filename, _)
-          return util.root_pattern('buildServer.json')(filename)
+          return util.root_pattern('Package.swift')(filename)
+            or util.root_pattern('buildServer.json')(filename)
             or util.root_pattern('*.xcodeproj', '*.xcworkspace')(filename)
-            or util.root_pattern('Package.swift')(filename)
             or util.find_git_ancestor(filename)
         end,
       })
@@ -93,6 +94,8 @@ return {
       -- })
 
       lsp.biome.setup({ capabilities })
+
+      lsp.pyright.setup({})
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
@@ -120,16 +123,13 @@ return {
           nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols')
 
           -- See `:help K` for why this keymap
-          nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+          -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
           nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-          local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          if vim.fn.has('nvim-0.10') == 1 and client.server_capabilities.inlayHintProvider then
-            local function toggle_inlay_hints()
-              vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
-            end
-            nmap('<leader>cth', toggle_inlay_hints, 'Toggle inlay hints')
+          local function toggle_inlay_hints()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
           end
+          nmap('<leader>cth', toggle_inlay_hints, 'Toggle inlay hints')
         end,
       })
     end,

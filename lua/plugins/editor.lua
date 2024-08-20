@@ -169,6 +169,7 @@ return {
       },
     },
   },
+  { 'echasnovski/mini.icons', version = false },
   {
     'echasnovski/mini.bufremove',
     keys = {
