@@ -118,13 +118,8 @@ return {
           nmap('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
           nmap('gr', require('telescope.builtin').lsp_references, 'Goto References')
           nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation')
-          nmap('<leader>D', vim.lsp.buf.type_definition, 'Type Definition')
           nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
           nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols')
-
-          -- See `:help K` for why this keymap
-          -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-          nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
           local function toggle_inlay_hints()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
