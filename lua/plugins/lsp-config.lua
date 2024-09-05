@@ -39,7 +39,7 @@ return {
           },
         },
       })
-      lsp.tsserver.setup({
+      lsp.ts_ls.setup({
         capabilities,
         settings = {
           -- Disable the <variable> is declared but its value is never read warning for TS
