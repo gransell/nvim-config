@@ -94,17 +94,6 @@ return {
     'folke/which-key.nvim',
     opts = {
       plugins = { spelling = true },
-      -- defaults = {
-      --   mode = { 'n', 'v' },
-      --   ['<leader>b'] = { name = '+buffer' },
-      --   ['<leader>c'] = { name = '+code' },
-      --   ['<leader>f'] = { name = '+file/find' },
-      --   -- ['<leader>g'] = { name = '+git' },
-      --   ['<leader>h'] = { name = '+hunks' },
-      --   ['<leader>q'] = { name = '+quit/session' },
-      --   ['<leader>s'] = { name = '+search' },
-      --   ['<leader>w'] = { name = '+workspace' },
-      -- },
     },
     config = function(_, opts)
       local wk = require('which-key')

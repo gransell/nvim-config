@@ -21,6 +21,7 @@ return {
       typescript = { 'prettierd' },
       typescriptreact = { 'prettierd' },
       css = { 'prettierd' },
+      json = { 'prettierd' },
       lua = { 'stylua' },
       swift = { 'swift_format' },
     },
