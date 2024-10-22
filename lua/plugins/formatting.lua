@@ -24,6 +24,7 @@ return {
       json = { 'prettierd' },
       lua = { 'stylua' },
       swift = { 'swift_format' },
+      yaml = { 'yamlfmt' },
     },
     format_on_save = {
       lsp_fallback = true,
