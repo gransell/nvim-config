@@ -7,9 +7,16 @@ return {
     'MunifTanjim/nui.nvim',
   },
   config = function()
-    local nt = require('neo-tree')
-    nt.setup({
+    local function on_move(data)
+      Snacks.rename.on_rename_file(data.source, data.destination)
+    end
+    local events = require('neo-tree.events')
+    local opts = {
       enable_diagnostics = true,
+      event_handlers = {
+        { event = events.FILE_MOVED, handler = on_move },
+        { event = events.FILE_RENAMED, handler = on_move },
+      },
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
@@ -42,7 +49,9 @@ return {
           },
         },
       },
-    })
+    }
+    local nt = require('neo-tree')
+    nt.setup(opts)
     vim.g.neo_tree_remove_legacy_commands = 1
 
     if vim.fn.argc() == 1 then

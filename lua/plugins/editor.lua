@@ -200,25 +200,25 @@ return {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
-  {
-    'NeogitOrg/neogit',
-    dependencies = {
-      'nvim-lua/plenary.nvim', -- required
-      'sindrets/diffview.nvim', -- optional - Diff integration
-
-      -- Only one of these is needed, not both.
-      'nvim-telescope/telescope.nvim', -- optional
-    },
-    config = function()
-      local neogit = require('neogit')
-      neogit.setup({})
-
-      vim.keymap.set('n', '<leader>go', neogit.open, { desc = 'Open NeoGit' })
-      vim.keymap.set('n', '<leader>gc', function()
-        neogit.open({ 'commit' })
-      end, { desc = 'Open NeoGit Commit' })
-    end,
-  },
+  -- {
+  --   'NeogitOrg/neogit',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim', -- required
+  --     'sindrets/diffview.nvim', -- optional - Diff integration
+  --
+  --     -- Only one of these is needed, not both.
+  --     'nvim-telescope/telescope.nvim', -- optional
+  --   },
+  --   config = function()
+  --     local neogit = require('neogit')
+  --     neogit.setup({})
+  --
+  --     vim.keymap.set('n', '<leader>go', neogit.open, { desc = 'Open NeoGit' })
+  --     vim.keymap.set('n', '<leader>gc', function()
+  --       neogit.open({ 'commit' })
+  --     end, { desc = 'Open NeoGit Commit' })
+  --   end,
+  -- },
   -- {
   --   'nvim-tree/nvim-tree.lua',
   --   version = '*',
