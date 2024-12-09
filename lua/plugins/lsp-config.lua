@@ -76,7 +76,7 @@ return {
       local util = require('lspconfig.util')
       lsp.sourcekit.setup({
         capabilities,
-        cmd = { '/usr/bin/sourcekit-lsp' },
+        cmd = { '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp' },
         root_dir = function(filename, _)
           return util.root_pattern('Package.swift')(filename)
             or util.root_pattern('buildServer.json')(filename)
