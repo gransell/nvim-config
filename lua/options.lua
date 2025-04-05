@@ -4,6 +4,7 @@ opt.expandtab = true
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 2
+opt.colorcolumn = '100'
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
@@ -51,10 +52,25 @@ vim.o.completeopt = 'menu,menuone,noselect'
 opt.foldmethod = 'expr'
 opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
-vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
-vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
+    },
+  },
+  -- float = {
+  --   border = 'rounded',
+  --   format = function(d)
+  --     return ('%s (%s) [%s]'):format(d.message, d.source, d.code or d.user_data.lsp.code)
+  --   end,
+  -- },
+  underline = true,
+  float = false,
+  virtual_text = { { current_line = true } },
+})
 
 -- [[ Basic Keymaps ]]
 
@@ -121,7 +137,7 @@ vim.keymap.set('n', '<leader>dx', function()
 end, { desc = 'Toggle trouble' })
 vim.keymap.set('n', '<leader>dw', function()
   require('trouble').toggle('workspace_diagnostics')
-end, { desc = 'Toggle worskapce diagnostics' })
+end, { desc = 'Toggle workspace diagnostics' })
 vim.keymap.set('n', '<leader>dd', function()
   require('trouble').toggle('document_diagnostics')
 end, { desc = 'Toggle document diagnostics' })

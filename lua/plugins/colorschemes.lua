@@ -31,6 +31,17 @@ return {
           which_key = true,
           -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
         },
+        custom_highlights = function(colors)
+          local highlights = {}
+
+          local spell_options = { style = { 'undercurl' }, fg = colors.red }
+          local spell_groups = { 'SpellBad', 'SpellCap', 'SpellLocal', 'SpellRare' }
+          for _, v in ipairs(spell_groups) do
+            highlights[v] = spell_options
+          end
+
+          return highlights
+        end,
       })
       -- load the colorscheme here
       vim.cmd.colorscheme('catppuccin')

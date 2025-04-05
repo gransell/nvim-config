@@ -170,64 +170,20 @@ return {
     },
   },
   { 'echasnovski/mini.icons', version = false },
-  -- {
-  --   'echasnovski/mini.bufremove',
-  --   keys = {
-  --     {
-  --       '<leader>bd',
-  --       function()
-  --         require('mini.bufremove').delete(0, false)
-  --       end,
-  --       desc = 'Delete Buffer',
-  --     },
-  --     {
-  --       '<leader>bD',
-  --       function()
-  --         require('mini.bufremove').delete(0, true)
-  --       end,
-  --       desc = 'Delete Buffer (Force)',
-  --     },
-  --   },
-  -- },
-  -- {
-  --   'echasnovski/mini.indentscope',
-  --   version = false,
-  --   config = function()
-  --     require('mini.indentscope').setup()
-  --   end,
-  -- },
   {
-    'folke/trouble.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    init = function()
+      local harpoon = require('harpoon')
+
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end, { desc = 'Add file to Harpoon' })
+
+      vim.keymap.set('n', '<C-e>', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end)
+    end,
   },
-  -- {
-  --   'NeogitOrg/neogit',
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim', -- required
-  --     'sindrets/diffview.nvim', -- optional - Diff integration
-  --
-  --     -- Only one of these is needed, not both.
-  --     'nvim-telescope/telescope.nvim', -- optional
-  --   },
-  --   config = function()
-  --     local neogit = require('neogit')
-  --     neogit.setup({})
-  --
-  --     vim.keymap.set('n', '<leader>go', neogit.open, { desc = 'Open NeoGit' })
-  --     vim.keymap.set('n', '<leader>gc', function()
-  --       neogit.open({ 'commit' })
-  --     end, { desc = 'Open NeoGit Commit' })
-  --   end,
-  -- },
-  -- {
-  --   'nvim-tree/nvim-tree.lua',
-  --   version = '*',
-  --   lazy = false,
-  --   dependencies = {
-  --     'nvim-tree/nvim-web-devicons',
-  --   },
-  --   config = function()
-  --     require('nvim-tree').setup({})
-  --   end,
-  -- },
 }

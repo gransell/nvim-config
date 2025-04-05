@@ -9,7 +9,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'pyright', 'rust_analyzer', 'ts_ls', 'lua_ls', 'biome' },
+        ensure_installed = { 'pyright', 'rust_analyzer', 'ts_ls', 'lua_ls', 'biome', 'ruff' },
       })
     end,
   },
@@ -114,12 +114,6 @@ return {
 
           nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode Rename')
           nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode Action')
-
-          nmap('gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
-          nmap('gr', require('telescope.builtin').lsp_references, 'Goto References')
-          nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation')
-          nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
-          nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols')
 
           local function toggle_inlay_hints()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))

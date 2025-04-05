@@ -6,7 +6,7 @@ return {
     config = function()
       local configs = require('nvim-treesitter.configs')
       configs.setup({
-        ensure_installed = { 'regex', 'bash', 'markdown_inline' },
+        ensure_installed = { 'regex', 'bash', 'markdown_inline', 'xml', 'swift' },
         auto_install = true,
         highlight = { enable = true },
         indent = { enable = true },
