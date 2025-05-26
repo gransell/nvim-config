@@ -19,8 +19,7 @@ return {
       { 'folke/neodev.nvim', opts = { library = { plugins = { 'nvim-dap-ui' }, types = true } } },
     },
     config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local lsp = require('lspconfig')
       lsp.lua_ls.setup({
@@ -47,28 +46,6 @@ return {
           completions = {
             completeFunctionCalls = true,
           },
-          typescript = {
-            inlayHints = {
-              includeInlayParameterNameHints = 'all',
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
-          },
-          javascript = {
-            inlayHints = {
-              includeInlayParameterNameHints = 'all',
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
-          },
           -- documentFormatting = false
         },
       })
@@ -85,17 +62,9 @@ return {
         end,
       })
 
-      -- lsp.eslint.setup({
-      --   capabilities,
-      --   settings = {
-      --     workingDirectory = { mode = 'location' },
-      --   },
-      --   root_dir = lsp.util.find_git_ancestor,
-      -- })
-
       lsp.biome.setup({ capabilities })
 
-      lsp.pyright.setup({})
+      lsp.pyright.setup({ capabilities })
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
