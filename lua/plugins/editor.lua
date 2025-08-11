@@ -4,16 +4,26 @@ local diagnosticsIcons = {
   info = ' ',
   hint = ' ',
 }
+
 local function xcodebuild_device()
   if vim.g.xcodebuild_platform == 'macOS' then
     return ' macOS'
   end
 
-  if vim.g.xcodebuild_os then
-    return ' ' .. vim.g.xcodebuild_device_name .. ' (' .. vim.g.xcodebuild_os .. ')'
+  local deviceIcon = ''
+  if vim.g.xcodebuild_platform:match('watch') then
+    deviceIcon = '􀟤'
+  elseif vim.g.xcodebuild_platform:match('tv') then
+    deviceIcon = '􀡴 '
+  elseif vim.g.xcodebuild_platform:match('vision') then
+    deviceIcon = '􁎖 '
   end
 
-  return ' ' .. vim.g.xcodebuild_device_name
+  if vim.g.xcodebuild_os then
+    return deviceIcon .. ' ' .. vim.g.xcodebuild_device_name .. ' (' .. vim.g.xcodebuild_os .. ')'
+  end
+
+  return deviceIcon .. ' ' .. vim.g.xcodebuild_device_name
 end
 
 return {
@@ -46,21 +56,9 @@ return {
           { 'filename', path = 1, symbols = { modified = '  ', readonly = '', unnamed = '' } },
         },
         lualine_x = {
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.command.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-            -- color = Util.fg("Constant"),
-          },
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.mode.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-            -- color = Util.fg("Constant"),
-          },
-          -- { "' ' .. vim.g.xcodebuild_last_status", color = { fg = 'Gray' } },
-          -- { "'󰙨 ' .. vim.g.xcodebuild_test_plan", color = { fg = '#a6e3a1', bg = '#161622' } },
-          -- { xcodebuild_device, color = { fg = '#f9e2af', bg = '#161622' } },
+          { "' ' .. vim.g.xcodebuild_last_status" },
+          { "'󰙨 ' .. vim.g.xcodebuild_test_plan", color = { fg = '#a6e3a1', bg = '#161622' } },
+          { xcodebuild_device },
           {
             'diff',
             symbols = {

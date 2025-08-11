@@ -5,7 +5,7 @@ return {
     priority = 1000,
     config = function()
       require('catppuccin').setup({
-        flavour = 'frappe', -- latte, frappe, macchiato, mocha
+        flavour = 'latte', -- latte, frappe, macchiato, mocha
         dim_inactive = {
           enabled = false, -- dims the background color of inactive window
           shade = 'dark',

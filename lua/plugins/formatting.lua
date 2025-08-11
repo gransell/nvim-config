@@ -23,7 +23,7 @@ return {
       css = { 'prettierd' },
       json = { 'prettierd' },
       lua = { 'stylua' },
-      swift = { 'swift_format' },
+      swift = { 'swift' },
       yaml = { 'yamlfmt' },
       python = { 'ruff_format' },
     },

@@ -147,3 +147,5 @@ end, { desc = 'Toggle Quick Fix' })
 vim.keymap.set('n', 'gR', function()
   require('trouble').toggle('lsp_references')
 end, { desc = 'Toggle trouble' })
+
+vim.api.nvim_set_keymap('n', '<leader>sc', '<cmd>lua require("switch_case").switch_case()<CR>', { noremap = true, silent = true })

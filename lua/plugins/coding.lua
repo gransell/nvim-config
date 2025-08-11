@@ -143,23 +143,30 @@ return {
   },
   {
     'mfussenegger/nvim-lint',
-    opts = {
-      -- Event to trigger linters
-      events = { 'BufWritePost', 'BufReadPost' },
-      linters_by_ft = {
-        ['python'] = { 'ruff' },
-        -- Use the "*" filetype to run linters on all filetypes.
-        ['*'] = { 'cspell' },
-      },
-    },
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost' }, {
+      local lint = require('lint')
+
+      lint.linters_by_ft = {
+        python = { 'ruff' },
+        swift = { 'swiftlint' },
+        ['*'] = { 'cspell' },
+      }
+
+      local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+
+      vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost', 'InsertLeave' }, {
+        group = lint_augroup,
         callback = function()
-          -- try_lint without arguments runs the linters defined in `linters_by_ft`
-          -- for the current filetype
-          require('lint').try_lint()
+          if not vim.endswith(vim.fn.bufname(), 'swiftinterface') then
+            require('lint').try_lint()
+          end
         end,
       })
+
+      vim.keymap.set('n', '<leader>l', function()
+        require('lint').try_lint()
+      end, { desc = 'Lint file' })
     end,
   },
   {
