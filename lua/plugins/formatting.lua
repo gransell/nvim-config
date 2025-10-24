@@ -17,9 +17,9 @@ return {
   opts = {
     -- Define your formatters
     formatters_by_ft = {
-      javascript = { 'prettierd' },
-      typescript = { 'prettierd' },
-      typescriptreact = { 'prettierd' },
+      javascript = { 'biome' },
+      typescript = { 'biome' },
+      typescriptreact = { 'biome' },
       css = { 'prettierd' },
       json = { 'prettierd' },
       lua = { 'stylua' },
