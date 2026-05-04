@@ -18,6 +18,8 @@ return {
     'neovim/nvim-lspconfig',
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+      capabilities.general = capabilities.general or {}
+      capabilities.general.positionEncodings = { 'utf-16', 'utf-8' }
 
       vim.lsp.config('*', {
         capabilities = capabilities,
