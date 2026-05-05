@@ -36,5 +36,3 @@ vim.keymap.set('n', '<leader>wse', '<C-w>=', { desc = 'Make splits equal size' }
 vim.keymap.set('n', '<leader>wx', '<cmd>close<cr>', { desc = 'Close window' })
 
 vim.keymap.set('n', '<leader>fw', '<cmd>w<cr><esc>', { desc = '[F]ile [W]rite' })
-
-vim.api.nvim_set_keymap('n', '<leader>sc', '<cmd>lua require("switch_case").switch_case()<CR>', { noremap = true, silent = true })

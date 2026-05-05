@@ -58,13 +58,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- [[ Unfold on open ]]
--- Since vim will start with all folds closed we need to open them all when a file is opened
-vim.opt.foldlevel = 20
--- local unfold_group = vim.api.nvim_create_augroup('Unfold', { clear = true })
--- vim.api.nvim_create_autocmd({ 'BufReadPost', 'FileReadPost' }, {
---   command = 'normal zR',
---   group = unfold_group,
---   pattern = '*',
--- })
-
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
+    },
+  },
+  underline = true,
+  float = false,
+  virtual_text = { { current_line = true } },
+})
